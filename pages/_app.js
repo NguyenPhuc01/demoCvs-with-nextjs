@@ -1,7 +1,12 @@
-import '../styles/globals.css'
+import LayoutPage from "../component/LayoutPage";
+import "../styles/globals.less";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <LayoutPage>
+      <Component {...pageProps} />
+    </LayoutPage>
+  );
 }
 
-export default MyApp
+export default MyApp;
