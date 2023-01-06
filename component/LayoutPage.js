@@ -22,7 +22,7 @@ function LayoutPage({ children }) {
             className="site-layout-background"
             style={{
               padding: 24,
-              minHeight: "100vh",
+              minHeight: "100%",
             }}
           >
             {children}

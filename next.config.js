@@ -3,10 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
 };
-
 module.exports = nextConfig;
-const withAntdLess = require("next-plugin-antd-less");
 
+const withAntdLess = require("next-plugin-antd-less");
 module.exports = withAntdLess({
   // optional: you can modify antd less variables directly here
   modifyVars: { "@primary-color": "#EC1C2A" },

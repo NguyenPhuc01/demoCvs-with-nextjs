@@ -61,7 +61,7 @@ function Header(props) {
         >
           <div>
             <Button
-              style={{ border: "none", boxShadow: "none" }}
+              style={{ border: "none", boxShadow: "none", color: "black" }}
               href="https://www.computervision.com.vn/"
               target="_blank"
             >
