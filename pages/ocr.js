@@ -2,8 +2,7 @@ import { Button, Col, Divider, Row, Tabs } from "antd";
 import React, { memo, useState } from "react";
 import Resul from "../component/Resul";
 import UploadComponent from "../component/UploadComponent";
-const ocr = ({ resultConnect }) => {
-  console.log("🚀 ~ file: ocr.js:6 ~ ocr ~ resultConnect", resultConnect);
+const ocr = () => {
   const [result, setResult] = useState();
   const onChange = (key) => {
     console.log(key);
@@ -64,28 +63,22 @@ Tài liệu doanh nghiệp
 
 export default memo(ocr);
 // export async function getServerSideProps(context) {
-//   var mysql = require("mysql2");
-
-//   var con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "123456",
-//   });
-
-//   con.connect(function (err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-//   });
-//   const result = con.query(
-//     `INSERT INTO mydata.table1 (id, content)
-// VALUES (5, 'content 5')`,
-//     function (err, results, fields) {
-//       console.log(results); // results contains rows returned by server
-//       console.log(fields); // fields contains extra meta data about results, if available
-//     }
+//   const user = process.env.MYSQL_USER;
+//   const password = process.env.MYSQL_PASSWORD;
+//   const host = process.env.MYSQL_HOST;
+//   const database = process.env.MYSQL_DATABASE;
+//   const port = process.env.MYSQL_PORT;
+//   console.log(
+//     "🚀 ~ file: db.js:30 ~ getServerSideProps ~ data",
+//     database,
+//     password,
+//     user,
+//     host,
+//     port
 //   );
 //   return {
 //     props: {
-
-//   }
+//       user: user,
+//     },
+//   };
 // }

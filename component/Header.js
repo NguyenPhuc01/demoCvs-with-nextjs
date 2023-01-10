@@ -9,8 +9,10 @@ import {
   Select,
   Space,
 } from "antd";
+import axios from "axios";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import globe from "../images/globe-outline.svg";
 const layout = {
   wrapperCol: {
@@ -31,6 +33,8 @@ const validateMessages = {
   },
 };
 function Header(props) {
+  const { data: session } = useSession();
+  console.log("🚀 ~ file: Header.js:37 ~ Header ~ session", session);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -44,6 +48,16 @@ function Header(props) {
   const handleChange = (value) => {
     // console.log("🚀 ~ file: Header.js:48 ~ handleChange ~ value", value);
   };
+
+  const hanldeLogin = () => {
+    console.log("login");
+    signIn();
+  };
+  useEffect(() => {
+    if (session !== undefined && session !== null) {
+      axios.post("http://localhost:3000/api/getdata", session?.user);
+    }
+  }, [session]);
   return (
     <Row>
       <Col xs={24}>
@@ -81,6 +95,19 @@ function Header(props) {
             >
               LIÊN HỆ DÙNG THỬ
             </Button>
+            {session ? (
+              <div>
+                welcome {session.user.name}
+                <Button onClick={() => signOut()} type="primary" size="large">
+                  {" "}
+                  logout
+                </Button>
+              </div>
+            ) : (
+              <Button onClick={hanldeLogin} type="primary" size="large">
+                Login
+              </Button>
+            )}
             <Drawer
               title="Liên hệ dùng thử"
               placement="right"

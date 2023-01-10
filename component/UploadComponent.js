@@ -17,13 +17,9 @@ function UploadComponent({ setResult, result }) {
 
   const [urlImageInput, setUrlImageInput] = useState("");
   const handleChange = (info) => {
-    console.log("🚀 ~ file: UploadComponent.js:28 ~ handleChange ~ info", info);
     setImageUrl(info.file);
   };
-  console.log(
-    "🚀 ~ file: UploadComponent.js:26 ~ UploadComponent ~ imageUrl",
-    imageUrl
-  );
+
   const uploadButton = (
     <div>
       {loading ? <LoadingOutlined /> : <PlusOutlined />}
