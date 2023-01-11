@@ -2,9 +2,11 @@ import {
   Button,
   Col,
   Drawer,
+  Dropdown,
   Form,
   Input,
   InputNumber,
+  Menu,
   Row,
   Select,
   Space,
@@ -14,6 +16,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import globe from "../images/globe-outline.svg";
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 const layout = {
   wrapperCol: {
     span: 24,
@@ -32,9 +35,33 @@ const validateMessages = {
     range: "${label} must be between ${min} and ${max}",
   },
 };
+const menu = (
+  <Menu
+    items={[
+      {
+        key: "1",
+        label: (
+          <Button
+            onClick={() => signOut()}
+            size="large"
+            ghost
+            type="primary"
+            style={{
+              height: 36,
+              fontSize: "14px",
+              width: "100%",
+            }}
+          >
+            Logout
+          </Button>
+        ),
+      },
+    ]}
+  />
+);
+
 function Header(props) {
   const { data: session } = useSession();
-  console.log("🚀 ~ file: Header.js:37 ~ Header ~ session", session);
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
@@ -50,7 +77,6 @@ function Header(props) {
   };
 
   const hanldeLogin = () => {
-    console.log("login");
     signIn();
   };
   useEffect(() => {
@@ -86,7 +112,7 @@ function Header(props) {
               </span>
             </Button>
           </div>
-          <div>
+          <div style={{ display: "flex" }}>
             <Button
               onClick={showDrawer}
               type="primary"
@@ -95,19 +121,53 @@ function Header(props) {
             >
               LIÊN HỆ DÙNG THỬ
             </Button>
-            {session ? (
-              <div>
-                welcome {session.user.name}
-                <Button onClick={() => signOut()} type="primary" size="large">
-                  {" "}
-                  logout
+            <div style={{ display: "flex", alignItems: "center" }}>
+              {session ? (
+                <div>
+                  <Dropdown overlay={menu}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <span
+                        style={{
+                          height: 36,
+                          fontSize: "14px",
+
+                          marginRight: 20,
+                        }}
+                      >
+                        <Space>
+                          <picture>
+                            <img
+                              src={session.user.image}
+                              alt=""
+                              style={{
+                                width: 40,
+                                height: 40,
+                                borderRadius: 100,
+                              }}
+                            />
+                          </picture>
+                          {session.user.name}
+                          <DownOutlined />
+                        </Space>
+                      </span>
+                    </a>
+                  </Dropdown>
+                </div>
+              ) : (
+                <Button
+                  onClick={hanldeLogin}
+                  type="primary"
+                  size="large"
+                  style={{
+                    height: 36,
+                    fontSize: "14px",
+                    marginRight: 20,
+                  }}
+                >
+                  Login
                 </Button>
-              </div>
-            ) : (
-              <Button onClick={hanldeLogin} type="primary" size="large">
-                Login
-              </Button>
-            )}
+              )}
+            </div>
             <Drawer
               title="Liên hệ dùng thử"
               placement="right"

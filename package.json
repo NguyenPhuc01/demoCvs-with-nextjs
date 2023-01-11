@@ -26,6 +26,7 @@
     "react-google-login": "^5.2.2",
     "serverless-mysql": "^1.5.4",
     "tls": "^0.0.1",
+    "use-query-params": "^2.1.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

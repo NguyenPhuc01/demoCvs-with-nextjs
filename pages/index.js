@@ -1,14 +1,11 @@
-import { Card, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import Head from "next/head";
-import Image from "next/image";
-import LayoutPage from "../component/LayoutPage";
-import styles from "../styles/Home.module.css";
 import Frame6 from "../images/Frame6.png";
 import Frame7 from "../images/Frame7.png";
 import Frame8 from "../images/Frame8.png";
 import Frame9 from "../images/Frame9.png";
 import Link from "next/link";
-const { Meta } = Card;
+import CardHome from "../component/cardHome";
 export default function Home() {
   return (
     <>
@@ -23,85 +20,40 @@ export default function Home() {
           <Col xs={24} sm={12} md={6}>
             {" "}
             <Link href={"/ocr"}>
-              <Card
-                hoverable
-                cover={
-                  <Image
-                    alt="example"
-                    src={Frame6}
-                    style={{ height: "auto" }}
-                  />
-                }
-                style={{ Width: "100%", height: "100%" }}
-              >
-                <Meta
-                  title="Nhận diện ký tự"
-                  description="Giấy tờ tùy thân, Giấy tờ xe, Hóa đơn, Dữ liệu bảng, ..."
-                />
-              </Card>
+              <CardHome
+                src={Frame6}
+                title="Nhận diện ký tự"
+                description="Giấy tờ tùy thân, Giấy tờ xe, Hóa đơn, Dữ liệu bảng, ..."
+              />
             </Link>
           </Col>
           <Col xs={24} sm={12} md={6}>
             <Link href={"/facial-recognition"}>
-              <Card
-                hoverable
-                cover={
-                  <Image
-                    alt="example"
-                    src={Frame7}
-                    style={{ height: "auto" }}
-                  />
-                }
-                style={{ Width: "100%", height: "100%" }}
-              >
-                <Meta
-                  title="Nhận Diện Khuôn Mặt"
-                  description="So khớp khuôn mặt, Tìm kiếm khuôn mặt, Tạo ảnh đại diện"
-                />
-              </Card>
+              <CardHome
+                src={Frame7}
+                title="Nhận Diện Khuôn Mặt"
+                description="So khớp khuôn mặt, Tìm kiếm khuôn mặt, Tạo ảnh đại diện"
+              />
             </Link>
           </Col>
           <Col xs={24} sm={12} md={6}>
             {" "}
             <Link href={"/ekyc"}>
-              <Card
-                hoverable
-                cover={
-                  <Image
-                    alt="example"
-                    src={Frame9}
-                    style={{ height: "auto" }}
-                  />
-                }
-                style={{ Width: "100%", height: "100%" }}
-              >
-                <Meta
-                  title="eKYC"
-                  description="Định danh khách hàng trực tuyến
-"
-                />
-              </Card>
+              <CardHome
+                src={Frame9}
+                title="eKYC"
+                description="Định danh khách hàng trực tuyến"
+              />
             </Link>
           </Col>
           <Col xs={24} sm={12} md={6}>
             {" "}
             <Link href={"/image-recognition"}>
-              <Card
-                hoverable
-                cover={
-                  <Image
-                    alt="example"
-                    src={Frame8}
-                    style={{ height: "auto" }}
-                  />
-                }
-                style={{ Width: "100%", height: "100%" }}
-              >
-                <Meta
-                  title="Xử Lý Hình Ảnh"
-                  description="Smart Crop, Tagging"
-                />
-              </Card>
+              <CardHome
+                src={Frame8}
+                title="Xử Lý Hình Ảnh"
+                description="Smart Crop, Tagging"
+              />
             </Link>
           </Col>
         </Row>

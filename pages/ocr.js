@@ -16,7 +16,7 @@ const ocr = () => {
           fontWeight: 600,
         }}
       >
-        Nhận diện khuôn mặt
+        Nhận diện ký tự
       </h3>
       <Divider orientation="left" plain>
         Chọn sản phẩm

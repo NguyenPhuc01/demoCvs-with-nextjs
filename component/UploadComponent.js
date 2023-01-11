@@ -2,11 +2,7 @@ import { Button, Input, Upload } from "antd";
 import { LoadingOutlined, PlusOutlined, DeleteFilled } from "@ant-design/icons";
 import React, { useState } from "react";
 import axios from "axios";
-const getBase64 = (img, callback) => {
-  const reader = new FileReader();
-  reader.addEventListener("load", () => callback(reader.result));
-  reader.readAsDataURL(img);
-};
+
 const beforeUpload = (file) => {
   return false;
 };
@@ -42,13 +38,13 @@ function UploadComponent({ setResult, result }) {
           "bf5447d99f7e084fdc1786e141cbfb5f6351be83494c3be1006bd39d174b0636",
       },
 
-      url: `https://demo.computervision.com.vn/backend/api/v1/request/ocr/cmt/get_infor_all?url=${urlImageInput}`,
+      url: `https://demo.computervision.com.vn/api/v3/ekyc/cards?format_type=url&img1=${urlImageInput}`,
     };
     axios(options)
       .then((res) => {
         setLoading(false);
-        console.log("🚀 ~ file: Home.js:37 ~ useEffect ~ res", res);
-        setResult(res);
+        console.log("🚀 ~ file: Home.js:37 ~ useEffect ~ res", res.data);
+        setResult(res.data.data);
       })
       .catch((error) => {
         setLoading(false);
@@ -60,7 +56,7 @@ function UploadComponent({ setResult, result }) {
     e.stopPropagation();
     setImageUrl("");
     setUrlImageInput("");
-    setResult("");
+    setResult([]);
   };
   return (
     <div style={{ position: "relative" }}>

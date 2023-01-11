@@ -2703,6 +2703,11 @@
   "resolved" "https://registry.npmjs.org/seq-queue/-/seq-queue-0.0.5.tgz"
   "version" "0.0.5"
 
+"serialize-query-params@^2.0.2":
+  "integrity" "sha512-1chMo1dST4pFA9RDXAtF0Rbjaut4is7bzFbI1Z26IuMub68pNCILku85aYmeFhvnY//BXUPUhoRMjYcsT93J/Q=="
+  "resolved" "https://registry.npmjs.org/serialize-query-params/-/serialize-query-params-2.0.2.tgz"
+  "version" "2.0.2"
+
 "serverless-mysql@^1.5.4":
   "integrity" "sha512-q7hJh8NivO2g4CcZ7wy3KTctsFpqx/P4zrVJTwsJJoV9v9QouGv0IFLKXW0rkOqbHSQRvth/eTbf7noYBJzPiQ=="
   "resolved" "https://registry.npmjs.org/serverless-mysql/-/serverless-mysql-1.5.4.tgz"
@@ -2967,6 +2972,13 @@
   "version" "4.4.1"
   dependencies:
     "punycode" "^2.1.0"
+
+"use-query-params@^2.1.2":
+  "integrity" "sha512-evg64srKaILvKyRQ1zpXvekTC7rktAT7OAekU7x6naHrOMqLHtq0MHR/PtKIQAP4d7HrkYNVOS8exHhiWy7m3A=="
+  "resolved" "https://registry.npmjs.org/use-query-params/-/use-query-params-2.1.2.tgz"
+  "version" "2.1.2"
+  dependencies:
+    "serialize-query-params" "^2.0.2"
 
 "util-deprecate@~1.0.1":
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 const getConfidence = (confidence) => {
   return (confidence * 100).toFixed(2) + "%";
 };
@@ -30,7 +30,15 @@ function Field({ name, value, confidence }) {
   );
 }
 function Resul({ result }) {
-  const data = result?.data?.data;
+  const [resultData, setResultData] = useState({});
+  // console.log("🚀 ~ file: Resul.js:33 ~ Resul ~ result", result);
+  const data = result;
+  useEffect(() => {
+    result?.forEach((e) => {
+      setResultData(e.info);
+    });
+  }, [result]);
+  console.log("resultData", resultData);
   return (
     <div
       style={{
@@ -43,37 +51,112 @@ function Resul({ result }) {
       {data ? (
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Field
-            name={"Số thẻ"}
-            value={data?.id}
-            confidence={data?.id_confidence}
+            name="Số thẻ"
+            value={resultData.id}
+            confidence={resultData.id_confidence}
           />
           <Field
-            name={"Họ Tên"}
-            value={data?.name}
-            confidence={data?.name_confidence}
+            name="Họ tên"
+            value={resultData.name}
+            confidence={resultData.name_confidence}
           />
           <Field
-            name={"Ngày sinh"}
-            value={data?.born}
-            confidence={data?.name_confidence}
-          />
-          <Field name={"Giới Tính"} value={data?.sex} confidence={""} />
-          <Field name={"Quốc tịch"} value={data?.quoctich} confidence={""} />
-          <Field name={"Dân tộc"} value={""} confidence={""} />
-          <Field
-            name={"Quê quán"}
-            value={data?.country}
-            confidence={data?.hometown_confidence}
+            name="Ngày sinh"
+            value={resultData.dob}
+            confidence={resultData.dob_confidence}
           />
           <Field
-            name={"Thường trú"}
-            value={data?.address}
-            confidence={data?.address_confidence}
+            name="Giới tính"
+            value={resultData.gender}
+            confidence={resultData.gender_confidence}
           />
           <Field
-            name={"Giá trị đến ngày"}
-            value={data?.duedate}
-            confidence={""}
+            name="Quốc tịch"
+            value={resultData.nationality}
+            confidence={resultData.nationality_confidence}
+          />
+          <Field
+            name="Dân tộc"
+            value={resultData.ethnicity}
+            confidence={resultData.ethnicity_confidence}
+          />
+          <div className="field">
+            <div style={{ color: "hsla(0,0%,100%,.34)" }}>Quê quán:</div>
+            <div className="field-value">
+              {resultData.hometown}{" "}
+              {resultData.hometown_confidence && (
+                <>
+                  {" "}
+                  <span style={{ color: "hsla(0,0%,100%,.34)" }}>
+                    - Độ tin cậy:{" "}
+                  </span>
+                  {getConfidence(resultData.hometown_confidence)}
+                </>
+              )}
+              <br />
+              Tỉnh/TP:{" "}
+              {resultData.hometown_town_code >= 0 && (
+                <>
+                  {resultData.hometown_town_code} - {resultData.hometown_town}
+                </>
+              )}
+              <br />
+              Quận/Huyện:{" "}
+              {resultData.hometown_district_code >= 0 && (
+                <>
+                  {resultData.hometown_district_code} -{" "}
+                  {resultData.hometown_district}
+                </>
+              )}
+              <br />
+              Phường/Xã:{" "}
+              {resultData.hometown_ward_code >= 0 && (
+                <>
+                  {resultData.hometown_ward_code} - {resultData.hometown_ward}
+                </>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <div style={{ color: "hsla(0,0%,100%,.34)" }}>Thường trú:</div>
+            <div className="field-value">
+              {resultData.address}{" "}
+              {resultData.address_confidence && (
+                <>
+                  <span style={{ color: "hsla(0,0%,100%,.34)" }}>
+                    - Độ tin cậy:{" "}
+                  </span>
+                  {getConfidence(resultData.address_confidence)}
+                </>
+              )}{" "}
+              <br />
+              Tỉnh/TP:{" "}
+              {resultData.address_town_code >= 0 && (
+                <>
+                  {resultData.address_town_code} - {resultData.address_town}
+                </>
+              )}
+              <br />
+              Quận/Huyện:{" "}
+              {resultData.address_district_code >= 0 && (
+                <>
+                  {resultData.address_district_code} -{" "}
+                  {resultData.address_district}
+                </>
+              )}
+              <br />
+              Phường/Xã:{" "}
+              {resultData.address_ward_code >= 0 && (
+                <>
+                  {resultData.address_ward_code} - {resultData.address_ward}
+                </>
+              )}
+            </div>
+          </div>
+          <Field
+            name="Giá trị đến ngày"
+            value={resultData.due_date}
+            confidence={resultData.due_date_confidence}
           />
         </div>
       ) : (
