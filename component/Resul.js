@@ -31,14 +31,14 @@ function Field({ name, value, confidence }) {
 }
 function Resul({ result }) {
   const [resultData, setResultData] = useState({});
-  // console.log("🚀 ~ file: Resul.js:33 ~ Resul ~ result", result);
+  console.log("🚀 ~ file: Resul.js:33 ~ Resul ~ result", result);
   const data = result;
   useEffect(() => {
     result?.forEach((e) => {
       setResultData(e.info);
     });
   }, [result]);
-  console.log("resultData", resultData);
+
   return (
     <div
       style={{

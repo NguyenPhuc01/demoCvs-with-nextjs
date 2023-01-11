@@ -80,10 +80,20 @@ function Header(props) {
     signIn();
   };
   useEffect(() => {
-    if (session !== undefined && session !== null) {
-      axios.post("http://localhost:3000/api/getdata", session?.user);
+    let email = localStorage.getItem("email");
+    if (session?.user?.email !== undefined) {
+      if (email !== session?.user?.email) {
+        axios.post("http://localhost:3000/api/getdata", session?.user);
+        console.log(true);
+      }
     }
   }, [session]);
+  useEffect(() => {
+    if (session !== undefined && session !== null) {
+      localStorage.setItem("email", session?.user?.email);
+    }
+  }, [session]);
+
   return (
     <Row>
       <Col xs={24}>

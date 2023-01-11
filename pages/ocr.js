@@ -3,6 +3,7 @@ import React, { memo, useState } from "react";
 import Resul from "../component/Resul";
 import UploadComponent from "../component/UploadComponent";
 const ocr = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [result, setResult] = useState();
   const onChange = (key) => {
     console.log(key);
@@ -62,23 +63,3 @@ Tài liệu doanh nghiệp
 };
 
 export default memo(ocr);
-// export async function getServerSideProps(context) {
-//   const user = process.env.MYSQL_USER;
-//   const password = process.env.MYSQL_PASSWORD;
-//   const host = process.env.MYSQL_HOST;
-//   const database = process.env.MYSQL_DATABASE;
-//   const port = process.env.MYSQL_PORT;
-//   console.log(
-//     "🚀 ~ file: db.js:30 ~ getServerSideProps ~ data",
-//     database,
-//     password,
-//     user,
-//     host,
-//     port
-//   );
-//   return {
-//     props: {
-//       user: user,
-//     },
-//   };
-// }

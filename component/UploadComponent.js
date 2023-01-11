@@ -6,7 +6,6 @@ import axios from "axios";
 const beforeUpload = (file) => {
   return false;
 };
-
 function UploadComponent({ setResult, result }) {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
@@ -30,34 +29,62 @@ function UploadComponent({ setResult, result }) {
   );
   const handleSubmit = () => {
     setLoading(true);
-    const options = {
-      method: "GET",
-      auth: {
-        username: "0bd6a2540de64bf7a3204ed733eb3486",
-        password:
-          "bf5447d99f7e084fdc1786e141cbfb5f6351be83494c3be1006bd39d174b0636",
-      },
+    const formData = new FormData();
+    formData.append("img1", imageUrl);
+    if (imageUrl) {
+      const options = {
+        method: "POST",
+        auth: {
+          username: "0bd6a2540de64bf7a3204ed733eb3486",
+          password:
+            "bf5447d99f7e084fdc1786e141cbfb5f6351be83494c3be1006bd39d174b0636",
+        },
+        data: formData,
+        url: `https://demo.computervision.com.vn/api/v3/ekyc/cards?format_type=file`,
+      };
+      axios(options)
+        .then((res) => {
+          setLoading(false);
+          setResult(res.data.data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setResult(error);
+        });
+    } else {
+      const options = {
+        method: "GET",
+        auth: {
+          username: "0bd6a2540de64bf7a3204ed733eb3486",
+          password:
+            "bf5447d99f7e084fdc1786e141cbfb5f6351be83494c3be1006bd39d174b0636",
+        },
 
-      url: `https://demo.computervision.com.vn/api/v3/ekyc/cards?format_type=url&img1=${urlImageInput}`,
-    };
-    axios(options)
-      .then((res) => {
-        setLoading(false);
-        console.log("🚀 ~ file: Home.js:37 ~ useEffect ~ res", res.data);
-        setResult(res.data.data);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setResult(error);
-        console.log("🚀 ~ file: Home.js:38 ~ useEffect ~ error", error);
-      });
+        url: `https://demo.computervision.com.vn/api/v3/ekyc/cards?format_type=url&img1=${urlImageInput}`,
+      };
+      axios(options)
+        .then((res) => {
+          setLoading(false);
+          setResult(res.data.data);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setResult(error);
+        });
+    }
   };
   const onDelete = (e) => {
     e.stopPropagation();
     setImageUrl("");
     setUrlImageInput("");
-    setResult([]);
+    setResult(undefined);
   };
+
+  console.log(
+    "🚀 ~ file: UploadComponent.js:13 ~ UploadComponent ~ imageUrl",
+    imageUrl
+  );
+
   return (
     <div style={{ position: "relative" }}>
       <Upload
