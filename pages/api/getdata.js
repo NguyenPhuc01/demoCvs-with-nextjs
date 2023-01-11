@@ -11,10 +11,21 @@ export default async function hanlerPostData(req, res) {
   });
   const id = uuidv4();
   try {
-    const queryData = `INSERT INTO mydata.datalogin (Id, Imgage, FullName,Email)
+    const query = `select Email from mydata.datauserlogin where Email='${req.body.email}'`;
+    const [data] = await db.execute(query);
+    let dataQuery = "";
+    data?.forEach((e) => {
+      dataQuery = e.Email;
+    });
+
+    if (dataQuery !== req.body.email) {
+      const queryData = `INSERT INTO mydata.datauserlogin (Id, Image, FullName,Email)
     VALUES ('${id}', '${resultData.image}', '${resultData.name}','${resultData.email}')`;
-    const [executeData] = await db.execute(queryData);
-    res.status(200).json({ result: executeData });
+      const [executeData] = await db.execute(queryData);
+      res.status(200).json({ result: executeData });
+    } else {
+      console.log("user đã đăng nhập trước đó");
+    }
   } catch (error) {
     console.log("error", error);
   }

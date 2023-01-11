@@ -1,8 +1,16 @@
 import React from "react";
-import LayoutPage from "../component/LayoutPage";
-
+import Head from "next/head";
 function ImageRecognition(props) {
-  return <>ImageRecognition</>;
+  return (
+    <>
+      <Head>
+        <title>Xử lý hình ảnh</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      ImageRecognition
+    </>
+  );
 }
 
 export default ImageRecognition;

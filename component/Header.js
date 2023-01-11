@@ -80,17 +80,17 @@ function Header(props) {
     signIn();
   };
   useEffect(() => {
-    let email = localStorage.getItem("email");
-    if (session?.user?.email !== undefined) {
-      if (email !== session?.user?.email) {
-        axios.post("http://localhost:3000/api/getdata", session?.user);
-        console.log(true);
-      }
-    }
+    // let email = localStorage.getItem("email");
+    // if (session?.user?.email !== undefined) {
+    //   if (email !== session?.user?.email) {
+    //     axios.post("http://localhost:3000/api/getdata", session?.user);
+    //     console.log(true);
+    //   }
+    // }
   }, [session]);
   useEffect(() => {
     if (session !== undefined && session !== null) {
-      localStorage.setItem("email", session?.user?.email);
+      axios.post("http://localhost:3000/api/getdata", session?.user);
     }
   }, [session]);
 
@@ -128,6 +128,7 @@ function Header(props) {
               type="primary"
               ghost
               style={{ height: 36, fontSize: "12px", marginRight: 20 }}
+              className="contact"
             >
               LIÊN HỆ DÙNG THỬ
             </Button>

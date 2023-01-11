@@ -80,11 +80,6 @@ function UploadComponent({ setResult, result }) {
     setResult(undefined);
   };
 
-  console.log(
-    "🚀 ~ file: UploadComponent.js:13 ~ UploadComponent ~ imageUrl",
-    imageUrl
-  );
-
   return (
     <div style={{ position: "relative" }}>
       <Upload

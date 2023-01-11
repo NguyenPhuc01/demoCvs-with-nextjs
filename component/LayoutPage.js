@@ -23,6 +23,7 @@ function LayoutPage({ children }) {
             style={{
               padding: 24,
               minHeight: "100%",
+              width: "100%",
             }}
           >
             {children}

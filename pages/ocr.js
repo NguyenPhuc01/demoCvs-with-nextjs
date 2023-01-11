@@ -2,6 +2,7 @@ import { Button, Col, Divider, Row, Tabs } from "antd";
 import React, { memo, useState } from "react";
 import Resul from "../component/Resul";
 import UploadComponent from "../component/UploadComponent";
+import Head from "next/head";
 const ocr = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [result, setResult] = useState();
@@ -10,6 +11,11 @@ const ocr = () => {
   };
   return (
     <>
+      <Head>
+        <title>Nhận diện ký tự</title>
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
       <h3
         style={{
           fontSize: "20px",
