@@ -13,18 +13,13 @@ export default async function hanlerPostData(req, res) {
   try {
     const query = `select Email from mydata.datauserlogin where Email='${req.body.email}'`;
     const [data] = await db.execute(query);
-    let dataQuery = "";
-    data?.forEach((e) => {
-      dataQuery = e.Email;
-    });
-
-    if (dataQuery !== req.body.email) {
+    if (data.length > 0) {
+      console.log("user đã đăng nhập trước đó");
+    } else {
       const queryData = `INSERT INTO mydata.datauserlogin (Id, Image, FullName,Email)
-    VALUES ('${id}', '${resultData.image}', '${resultData.name}','${resultData.email}')`;
+      VALUES ('${id}', '${resultData.image}', '${resultData.name}','${resultData.email}')`;
       const [executeData] = await db.execute(queryData);
       res.status(200).json({ result: executeData });
-    } else {
-      console.log("user đã đăng nhập trước đó");
     }
   } catch (error) {
     console.log("error", error);

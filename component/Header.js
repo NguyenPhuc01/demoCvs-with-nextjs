@@ -80,17 +80,18 @@ function Header(props) {
     signIn();
   };
   useEffect(() => {
-    // let email = localStorage.getItem("email");
-    // if (session?.user?.email !== undefined) {
-    //   if (email !== session?.user?.email) {
-    //     axios.post("http://localhost:3000/api/getdata", session?.user);
-    //     console.log(true);
-    //   }
-    // }
+    // axios.post("http://localhost:3000/api/getdata", session?.user);
+
+    let email = localStorage.getItem("email");
+    if (session?.user?.email !== undefined) {
+      if (email !== session?.user?.email) {
+        axios.post("http://localhost:3000/api/getdata", session?.user);
+      }
+    }
   }, [session]);
   useEffect(() => {
     if (session !== undefined && session !== null) {
-      axios.post("http://localhost:3000/api/getdata", session?.user);
+      localStorage.setItem("email", session?.user?.email);
     }
   }, [session]);
 
@@ -148,7 +149,7 @@ function Header(props) {
                         <Space>
                           <picture>
                             <img
-                              src={session.user.image}
+                              src={session?.user?.image}
                               alt=""
                               style={{
                                 width: 40,

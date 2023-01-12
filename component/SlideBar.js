@@ -12,11 +12,10 @@ import Vector3 from "../images/Vector3.svg";
 import Vector4 from "../images/Vector4.svg";
 import Vector5 from "../images/Vector5.svg";
 import { useRouter } from "next/router";
-function SlideBar(props) {
+function SlideBar() {
   const [collapsed, setCollapsed] = useState(false);
   const { Sider } = Layout;
   const router = useRouter();
-
   return (
     <Sider
       collapsible
@@ -65,40 +64,45 @@ function SlideBar(props) {
       </div>
       <Menu
         theme="dark"
-        defaultSelectedKeys={[]}
+        defaultSelectedKeys={["/"]}
         mode="inline"
+        selectedKeys={[router.pathname]}
         // items={items}
       >
         <Menu.Item
-          key={[1]}
+          key={["/"]}
           icon={<Image src={Vector1} alt="vector" />}
-          onClick={() => router.push("/")}
+          onClick={() => {
+            router.push("/");
+          }}
         >
           Trang chủ
         </Menu.Item>
         <Menu.Item
-          key={[2]}
+          key={["/ocr"]}
           icon={<Image src={Vector2} alt="vector" />}
-          onClick={() => router.push("/ocr")}
+          onClick={() => {
+            router.push("/ocr");
+          }}
         >
           Nhận diện ký tự
         </Menu.Item>
         <Menu.Item
-          key={[3]}
+          key={["/facial-recognition"]}
           icon={<Image src={Vector3} alt="vector" />}
           onClick={() => router.push("/facial-recognition")}
         >
           Nhận diện khuôn mặt
         </Menu.Item>
         <Menu.Item
-          key={[4]}
+          key={["/ekyc"]}
           icon={<Image src={Vector4} alt="vector" />}
           onClick={() => router.push("/ekyc")}
         >
           eKYC
         </Menu.Item>
         <Menu.Item
-          key={[5]}
+          key={["/image-recognition"]}
           icon={<Image src={Vector5} alt="vector" />}
           onClick={() => router.push("/image-recognition")}
         >

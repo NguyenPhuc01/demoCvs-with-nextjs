@@ -1,6 +1,7 @@
 import LayoutPage from "../component/LayoutPage";
 import "../styles/globals.less";
 import { SessionProvider } from "next-auth/react";
+import { useState } from "react";
 function MyApp({ Component, pageProps, session }) {
   return (
     <SessionProvider session={session}>
@@ -10,5 +11,4 @@ function MyApp({ Component, pageProps, session }) {
     </SessionProvider>
   );
 }
-
 export default MyApp;

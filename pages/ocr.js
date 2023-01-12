@@ -7,7 +7,7 @@ const ocr = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [result, setResult] = useState();
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
   };
   return (
     <>
