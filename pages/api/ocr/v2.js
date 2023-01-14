@@ -1,6 +1,8 @@
 import formidable from "formidable";
 import { NextApiRequest, NextApiResponse } from "next";
+import multer from "multer";
 const axios = require("axios");
+import fs from "fs";
 const FormData = require("form-data");
 
 const urlOptions = {
@@ -110,11 +112,6 @@ const urlOptions = {
   "car-damage-assessment":
     "https://demo.computervision.com.vn/api/v2/vision/car_damage_assessment?get_thumb=true",
 };
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 const recaptchaValidation = async ({ recaptchaToken }) => {
   try {
@@ -126,7 +123,11 @@ const recaptchaValidation = async ({ recaptchaToken }) => {
         response: recaptchaToken,
       },
     });
-    console.log("response.data: ", response.data);
+    console.log(
+      "🚀 ~ file: v2.js:126 ~ recaptchaValidation ~ response",
+      response
+    );
+
     return {
       success: response.data.success,
       message: response.data["error-codes"] || "error",
@@ -145,44 +146,42 @@ const recaptchaValidation = async ({ recaptchaToken }) => {
   }
 };
 
-const parseFrom = async (req) => {
-  return await new Promise((resolve, reject) => {
-    const form = formidable({});
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        return reject(err);
+async function parseFormData(req, res) {
+  const storage = multer.memoryStorage();
+  const multerUpload = multer({ storage });
+  const multerFiles = multerUpload.any();
+  await new Promise((resolve, reject) => {
+    multerFiles(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
       }
-      resolve({ fields, files });
+      return resolve(result);
     });
   });
+  return {
+    fields: req.body,
+    files: req.files,
+  };
+}
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
 
 export default async function handler(req, res) {
-  const formData = new FormData();
+  const result = await parseFormData(req, res);
 
   const type = req.query.type;
   const url = urlOptions[type];
 
   if (req.method === `POST`) {
-    // const { fields, files } = await parseFrom(req);
-    // console.log("🚀 ~ file: v2.js:163 ~ handler ~ files", files.img);
-    const form = new formidable.IncomingForm();
-    form.parse(req, async function (err, fields, files) {
-      const oldpath = files.img.filepath;
-      console.log("🚀 ~ file: v2.js:172 ~ oldpath", oldpath);
-
-      console.log("🚀 ~ file: v2.js:166 ~ files", files);
-      formData.append("img", files.img);
-
-      // await saveFile(files.file);
-      // return res.status(201).send("");
-    });
-
-    return;
-    // form.append("img", files.img);
+    const form = new FormData();
+    const file = result?.files[0];
+    form.append("img", file.buffer, file.originalname);
 
     const recaptchaValidationResult = await recaptchaValidation({
-      recaptchaToken: req.body.recaptchaToken,
+      recaptchaToken: req.query.recaptchaToken,
     });
 
     if (
@@ -198,8 +197,8 @@ export default async function handler(req, res) {
           username: process.env.GATSBY_API_USERNAME,
           password: process.env.GATSBY_API_PASSWORD,
         },
-        data: formData,
-        headers: formData.getHeaders(),
+        data: form,
+        headers: form.getHeaders(),
         maxContentLength: Infinity,
         maxBodyLength: Infinity,
       })

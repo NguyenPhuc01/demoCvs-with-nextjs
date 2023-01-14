@@ -115,7 +115,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
 
       axios({
         method: "POST",
-        url: `${window.location.origin}/api/ocr/v2?type=${currentType}`,
+        url: `${window.location.origin}/api/ocr/v2?type=${currentType}&recaptchaToken=${recaptchaToken}`,
         data: formData,
       })
         .then((res) => {
