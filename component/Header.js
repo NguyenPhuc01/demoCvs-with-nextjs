@@ -12,7 +12,7 @@ import {
   Space,
 } from "antd";
 import axios from "axios";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import globe from "../images/globe-outline.svg";
@@ -42,7 +42,11 @@ const menu = (
         key: "1",
         label: (
           <Button
-            onClick={() => signOut()}
+            onClick={() =>
+              signOut({
+                callbackUrl: "/",
+              })
+            }
             size="large"
             ghost
             type="primary"
@@ -60,12 +64,13 @@ const menu = (
   />
 );
 
-function Header(props) {
+function Header() {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const showDrawer = () => {
     setOpen(true);
   };
+
   const onClose = () => {
     setOpen(false);
   };
@@ -158,7 +163,7 @@ function Header(props) {
                               }}
                             />
                           </picture>
-                          {session.user.name}
+                          {session?.user?.name}
                           <DownOutlined />
                         </Space>
                       </span>

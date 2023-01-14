@@ -15,3 +15,4 @@ function eKYC() {
 }
 
 export default eKYC;
+eKYC.auth = true;

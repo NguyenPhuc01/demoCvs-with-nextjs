@@ -14,3 +14,4 @@ function FaceMatching(props) {
 }
 
 export default FaceMatching;
+FaceMatching.auth = true;

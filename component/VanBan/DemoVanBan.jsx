@@ -3,7 +3,7 @@ import {
   LeftOutlined,
   LoadingOutlined,
   PlusOutlined,
-  RightOutlined
+  RightOutlined,
 } from "@ant-design/icons";
 import { Col, Row, Upload, Button, Input, Space, Menu } from "antd";
 import React, { useState, useEffect } from "react";
@@ -47,11 +47,11 @@ const showMenuTypes = [
   "can-cuoc-cong-dan",
   "CMND/CCCD",
   "ho-chieu-vn",
-  "giay-phep-lai-xe-1"
+  "giay-phep-lai-xe-1",
 ];
 
 export default function DemoVanBan({ currentType, result, setResult }) {
-  const recaptchaSiteKey = process.env.GATSBY_RECAPTCHA_V3_SITE_KEY;
+  const recaptchaSiteKey = "6LcrRjQiAAAAAMZuLRlfyGjmJbHBvD5Xr4w57IYC";
   const recaptchaRef = React.useRef();
 
   const [loading, setLoading] = useState(false);
@@ -78,7 +78,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
     setFile(file);
   };
 
-  const onChangeLink = e => {
+  const onChangeLink = (e) => {
     const { value } = e.target;
     setFile(null);
     setInput(value);
@@ -94,7 +94,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
     }
   };
 
-  const onSubmit = recaptchaToken => {
+  const onSubmit = (recaptchaToken) => {
     if (!file && !imageUrl) return;
     trackTrialEvent(window.location.pathname);
 
@@ -106,17 +106,23 @@ export default function DemoVanBan({ currentType, result, setResult }) {
         formData.append("img", file);
       }
       formData.append("recaptchaToken", recaptchaToken);
+      for (const pair of formData.entries()) {
+        console.log("this is pair data", pair);
+      }
       setLoading(true);
+
+      console.log("current type", currentType);
+
       axios({
-        method: "post",
+        method: "POST",
         url: `${window.location.origin}/api/ocr/v2?type=${currentType}`,
-        data: formData
+        data: formData,
       })
-        .then(res => {
+        .then((res) => {
           setResult(res.data);
           setLoading(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setLoading(false);
         });
@@ -124,13 +130,13 @@ export default function DemoVanBan({ currentType, result, setResult }) {
       setLoading(true);
       axios({
         method: "get",
-        url: `${window.location.origin}/api/ocr/v2?type=${currentType}&img=${imageUrl}&recaptchaToken=${recaptchaToken}`
+        url: `${window.location.origin}/api/ocr/v2?type=${currentType}&img=${imageUrl}&recaptchaToken=${recaptchaToken}`,
       })
-        .then(res => {
+        .then((res) => {
           setResult(res.data);
           setLoading(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           setLoading(false);
         });
@@ -141,7 +147,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
     window.grecaptcha.ready(() => {
       window.grecaptcha
         .execute(recaptchaSiteKey, { action: "submit" })
-        .then(token => {
+        .then((token) => {
           onSubmit(token);
         });
     });
@@ -158,12 +164,12 @@ export default function DemoVanBan({ currentType, result, setResult }) {
     recaptchaRef.current.reset();
   };
 
-  const onDelete = e => {
+  const onDelete = (e) => {
     e.stopPropagation();
     onReset();
   };
 
-  const onChangeReCAPTCHA = token => {
+  const onChangeReCAPTCHA = (token) => {
     setToken(token);
   };
 
@@ -209,7 +215,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
                   <div className="menu">
                     <Menu
                       mode="horizontal"
-                      onClick={e => setCurrent(e.key)}
+                      onClick={(e) => setCurrent(e.key)}
                       selectedKeys={[current]}
                     >
                       <Menu.Item key="1">Ảnh gốc</Menu.Item>
@@ -242,10 +248,10 @@ export default function DemoVanBan({ currentType, result, setResult }) {
                     <>
                       {current === "3" && (
                         <img
-                          src={`data:image/png;base64,${result.data[
-                            pageNumber - 1
-                          ].info.image_table ||
-                            result?.data?.[pageNumber - 1]?.info?.image_drug}`}
+                          src={`data:image/png;base64,${
+                            result.data[pageNumber - 1].info.image_table ||
+                            result?.data?.[pageNumber - 1]?.info?.image_drug
+                          }`}
                           alt="avatar"
                           style={{ width: "100%" }}
                         />
@@ -286,21 +292,21 @@ export default function DemoVanBan({ currentType, result, setResult }) {
                             <div className="page-controls">
                               <Button
                                 icon={<LeftOutlined />}
-                                onClick={e => {
+                                onClick={(e) => {
                                   e.stopPropagation();
-                                  setPageNumber(page => page - 1);
+                                  setPageNumber((page) => page - 1);
                                 }}
                                 disabled={pageNumber === 1}
                               />
-                              <span onClick={e => e.stopPropagation()}>
+                              <span onClick={(e) => e.stopPropagation()}>
                                 {pageNumber} of{" "}
                                 {numPages || result?.data?.length}
                               </span>
                               <Button
                                 icon={<RightOutlined />}
-                                onClick={e => {
+                                onClick={(e) => {
                                   e.stopPropagation();
-                                  setPageNumber(page => page + 1);
+                                  setPageNumber((page) => page + 1);
                                 }}
                                 disabled={pageNumber === numPages}
                               />
@@ -323,7 +329,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
                               height: 360,
                               display: "flex",
                               justifyContent: "center",
-                              alignItems: "center"
+                              alignItems: "center",
                             }}
                           >
                             {file.name}
@@ -357,7 +363,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
               placeholder="Hoặc nhập link ảnh"
               style={{
                 height: 46,
-                marginTop: isPDF || result?.data?.length > 1 ? 56 : 8
+                marginTop: isPDF || result?.data?.length > 1 ? 56 : 8,
               }}
             />
 

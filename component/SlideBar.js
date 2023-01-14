@@ -67,7 +67,6 @@ function SlideBar() {
         defaultSelectedKeys={["/"]}
         mode="inline"
         selectedKeys={[router.pathname]}
-        // items={items}
       >
         <Menu.Item
           key={["/"]}

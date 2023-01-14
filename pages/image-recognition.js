@@ -14,3 +14,4 @@ function ImageRecognition(props) {
 }
 
 export default ImageRecognition;
+ImageRecognition.auth = true;
