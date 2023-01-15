@@ -123,11 +123,7 @@ const recaptchaValidation = async ({ recaptchaToken }) => {
         response: recaptchaToken,
       },
     });
-    console.log(
-      "🚀 ~ file: v2.js:126 ~ recaptchaValidation ~ response",
-      response
-    );
-
+    console.log("response.data: ", response.data);
     return {
       success: response.data.success,
       message: response.data["error-codes"] || "error",

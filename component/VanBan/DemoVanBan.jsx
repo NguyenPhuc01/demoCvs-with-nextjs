@@ -209,28 +209,30 @@ export default function DemoVanBan({ currentType, result, setResult }) {
       ) : (
         <Row gutter={[30, 60]}>
           <Col md={12} xs={24} style={{ position: "relative" }}>
-            {(file || imageUrl) && (
-              <>
-                {showMenuTypes.includes(currentType) && (
-                  <div className="menu">
-                    <Menu
-                      mode="horizontal"
-                      onClick={(e) => setCurrent(e.key)}
-                      selectedKeys={[current]}
-                    >
-                      <Menu.Item key="1">Ảnh gốc</Menu.Item>
-                      {result?.data && (
-                        <Menu.Item key="2">Ảnh đã xử lý</Menu.Item>
-                      )}
-                      {(result?.data?.[pageNumber - 1]?.info?.image_table ||
-                        result?.data?.[pageNumber - 1]?.info?.image_drug) && (
-                        <Menu.Item key="3">Ảnh bảng</Menu.Item>
-                      )}
-                    </Menu>
-                  </div>
-                )}
-              </>
-            )}
+            <div style={{ height: "48px" }}>
+              {(file || imageUrl) && (
+                <>
+                  {showMenuTypes.includes(currentType) && (
+                    <div className="menu">
+                      <Menu
+                        mode="horizontal"
+                        onClick={(e) => setCurrent(e.key)}
+                        selectedKeys={[current]}
+                      >
+                        <Menu.Item key="1">Ảnh gốc</Menu.Item>
+                        {result?.data && (
+                          <Menu.Item key="2">Ảnh đã xử lý</Menu.Item>
+                        )}
+                        {(result?.data?.[pageNumber - 1]?.info?.image_table ||
+                          result?.data?.[pageNumber - 1]?.info?.image_drug) && (
+                          <Menu.Item key="3">Ảnh bảng</Menu.Item>
+                        )}
+                      </Menu>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
             <Upload
               multiple={false}
               accept="image/*, application/pdf"

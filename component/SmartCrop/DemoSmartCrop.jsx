@@ -93,7 +93,9 @@ export default function DemoSmartCrop({ cropPerson, result, setResult }) {
         method: "post",
         url: `${window.location.origin}/api/smart-crop?width=${
           size.width
-        }&height=${size.height}&cropPerson=${Boolean(cropPerson)}`,
+        }&height=${size.height}&cropPerson=${Boolean(
+          cropPerson
+        )}&recaptchaToken=${recaptchaToken}`,
         data: formData,
       })
         .then((res) => {

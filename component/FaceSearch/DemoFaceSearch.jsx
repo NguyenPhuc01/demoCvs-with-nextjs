@@ -53,7 +53,7 @@ export default function DemoFaceSearch({ result, setResult }) {
       setLoading(true);
       axios({
         method: "post",
-        url: `${window.location.origin}/api/face-search`,
+        url: `${window.location.origin}/api/face-search?recaptchaToken=${recaptchaToken}`,
         data: formData,
       })
         .then((res) => {
