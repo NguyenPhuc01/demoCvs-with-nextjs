@@ -55,7 +55,7 @@ export default function DemoCMND({ result, setResult }) {
       setLoading(true);
       axios({
         method: "post",
-        url: `${window.location.origin}/api/ocr/v1`,
+        url: `${window.location.origin}/api/ocr/v1?recaptchaToken=${recaptchaToken}`,
         data: formData,
       })
         .then((res) => {

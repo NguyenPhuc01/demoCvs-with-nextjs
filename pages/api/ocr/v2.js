@@ -1,5 +1,4 @@
 import formidable from "formidable";
-import { NextApiRequest, NextApiResponse } from "next";
 import multer from "multer";
 const axios = require("axios");
 import fs from "fs";

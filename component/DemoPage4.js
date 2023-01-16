@@ -1,13 +1,19 @@
 import { Button, Space, Divider } from "antd";
 import React, { useEffect, useState } from "react";
-import { Link } from "gatsby-plugin-intl";
 import DemoFaceMatching from "./FaceMatching/DemoFaceMatching";
 import DemoCMND from "./OCR/DemoCMND";
-import { useQueryParam, StringParam, withDefault } from "use-query-params";
+import DemoVanBan from "../component/VanBan/DemoVanBan";
+
+import {
+  useQueryParam,
+  StringParam,
+  withDefault,
+  useQueryParams,
+} from "use-query-params";
 
 const types = [
   { id: 1, name: "Nhận diện GTTT", key: "CMND/CCCD" },
-  { id: 2, name: "So khớp khuôn mặt", key: "face-matching" }
+  { id: 2, name: "So khớp khuôn mặt", key: "face-matching" },
 ];
 
 export default function DemoPage2() {
@@ -16,10 +22,16 @@ export default function DemoPage2() {
     "type",
     withDefault(StringParam, "CMND/CCCD")
   );
-
+  const [query, setQuery] = useQueryParams({
+    tab: withDefault(StringParam, "id_card"),
+    type: withDefault(StringParam, "CMND/CCCD"),
+  });
+  const { tab, type } = query;
   const demoOptions = {
-    "CMND/CCCD": <DemoCMND result={result} setResult={setResult} />,
-    "face-matching": <DemoFaceMatching result={result} setResult={setResult} />
+    "CMND/CCCD": (
+      <DemoVanBan currentType={type} result={result} setResult={setResult} />
+    ),
+    "face-matching": <DemoFaceMatching result={result} setResult={setResult} />,
   };
 
   return (
@@ -32,7 +44,7 @@ export default function DemoPage2() {
             fontWeight: 600,
             lineHeight: "22px",
             fontFamily: "SFProDisplay",
-            color: "rgba(0, 0, 0, 0.85)"
+            color: "rgba(0, 0, 0, 0.85)",
           }}
           orientation="left"
         >
@@ -46,10 +58,10 @@ export default function DemoPage2() {
               align="center"
               style={{
                 justifyContent: "center",
-                width: "100%"
+                width: "100%",
               }}
             >
-              {types.map(type => {
+              {types.map((type) => {
                 const { id, name, key } = type;
                 return (
                   <Button
@@ -73,7 +85,7 @@ export default function DemoPage2() {
             fontWeight: 600,
             lineHeight: "22px",
             fontFamily: "SFProDisplay",
-            color: "rgba(0, 0, 0, 0.85)"
+            color: "rgba(0, 0, 0, 0.85)",
           }}
           orientation="left"
         >

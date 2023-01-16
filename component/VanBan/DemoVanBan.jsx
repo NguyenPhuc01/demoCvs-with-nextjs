@@ -240,7 +240,7 @@ export default function DemoVanBan({ currentType, result, setResult }) {
               showUploadList={false}
               onChange={onChangeFile}
               disabled={loading || hasData}
-              className="image-uploader"
+              // className="image-uploader"
             >
               {file || input ? (
                 <div style={{ position: "relative" }}>

@@ -56,7 +56,7 @@ export const config = {
 };
 export default async function handler(req, res) {
   const result = await parseFormData(req, res);
-  console.log("🚀 ~ file: face-search.js:59 ~ handler ~ req", req);
+  console.log("🚀 ~ file: face-search.js:59 ~ handler ~ req", req.files[0]);
   if (req.method === `POST`) {
     const file = result.files[0];
     let form = new FormData();
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
       !recaptchaValidationResult.success ||
       recaptchaValidationResult.score < 0.5
     ) {
-      res.status(400).send(recaptchaValidationResult.message);
+      res.status(400);
     } else {
       axios({
         method: "POST",
@@ -86,7 +86,7 @@ export default async function handler(req, res) {
           res.json(response.data);
         })
         .catch((err) => {
-          res.status(400).send(err);
+          res.status(400);
           // console.log(err)
         });
     }

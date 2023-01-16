@@ -1,5 +1,5 @@
 import React from "react";
-
+import DemoPage4 from "../component/DemoPage4";
 import Head from "next/head";
 function eKYC() {
   return (
@@ -9,7 +9,7 @@ function eKYC() {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      ekyc
+      <DemoPage4 />
     </>
   );
 }
